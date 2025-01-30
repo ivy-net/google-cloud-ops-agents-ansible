@@ -1,0 +1,21 @@
+---
+- name: Add Google Repository
+  ansible.builtin.yum_repository:
+    description: Google Cloud Agent Repo
+    name: google-cloud-ops-agent
+#  baseurl: "{{ source_url }}/yum/repos/google-cloud-ops-agent-el{{ ansible_distribution_major_version }}-{{ ansible_architecture | replace ('_','-') }}-all"
+    # yamllint disable-line rule:line-length
+    baseurl: "{{ source_url }}/yum/repos/google-cloud-ops-agent-el{{ ansible_distribution_major_version }}-$basearch-all"
+    gpgcheck: true
+    gpgkey: |
+      {{ source_url }}/yum/doc/yum-key.gpg
+      {{ source_url }}/yum/doc/rpm-package-key.gpg
+  tags:
+    - google_cloud_ops_agent
+
+- name: Install Google package
+  ansible.builtin.dnf:
+    name: "google-cloud-{{ agent_type }}"
+    update_cache: true
+  tags:
+    - google_cloud_ops_agent

@@ -1,0 +1,21 @@
+---
+- name: Add Google Repository
+  ansible.builtin.deb822_repository:
+    name: google_cloud_ops_agent
+    types: [deb]
+    uris: "{{ source_url }}/apt"
+    signed_by: "{{ source_url }}/apt/doc/apt-key.gpg"
+    # yamllint disable-line rule:line-length
+    suites: ["google-cloud-ops-agent-{{ ansible_distribution_release | lower }}-all"]
+    components: [main]
+    state: present
+    enabled: true
+  tags:
+    - google_cloud_ops_agent
+
+- name: Install Google package
+  ansible.builtin.apt:
+    name: "google-cloud-{{ agent_type }}"
+    update_cache: true
+  tags:
+    - google_cloud_ops_agent
