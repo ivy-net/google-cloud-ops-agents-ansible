@@ -9,9 +9,9 @@
     file: repo_rpm.yml
   when: ansible_os_family == "RedHat"
 
-- name: Start and enable Docker service
+- name: Start and enable Google monitoring service
   ansible.builtin.service:
-    name: "{{ agent_type }}"
+    name: "google-cloud-{{ agent_type }}"
     state: started
     enabled: true
   when: ansible_virtualization_type != "docker"

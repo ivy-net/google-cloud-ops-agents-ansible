@@ -3,7 +3,6 @@
   ansible.builtin.yum_repository:
     description: Google Cloud Agent Repo
     name: google-cloud-ops-agent
-#  baseurl: "{{ source_url }}/yum/repos/google-cloud-ops-agent-el{{ ansible_distribution_major_version }}-{{ ansible_architecture | replace ('_','-') }}-all"
     # yamllint disable-line rule:line-length
     baseurl: "{{ source_url }}/yum/repos/google-cloud-ops-agent-el{{ ansible_distribution_major_version }}-$basearch-all"
     gpgcheck: true
